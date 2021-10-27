@@ -2,8 +2,9 @@ package com.example.backendshelter.model;
 
 import lombok.*;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Getter
 @Setter
@@ -12,12 +13,10 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Shelter {
-
+public class Volunteer {
     @Id
     private Long id;
 
-    @OneToMany(mappedBy = "shelter")
-    private List<Volunteer> volunteers;
-
+    @ManyToOne
+    private Shelter shelter;
 }

@@ -22,13 +22,11 @@ public class Pet {
     @Enumerated
     private PetType petType;
 
+
     private String name;
 
     @OneToMany(mappedBy = "pet")
     private List<Feed> feedList;
-
-    @ManyToOne
-    @JoinColumn(name = "id_shelter")
-    private Shelter shelter;
-
 }
+
+

@@ -4,31 +4,28 @@ import com.example.backendshelter.controller.request.CreatePetFeedRQ;
 import com.example.backendshelter.controller.request.CreatePetRQ;
 import com.example.backendshelter.exception.PetNotFound;
 import com.example.backendshelter.model.Pet;
-import com.example.backendshelter.model.Shelter;
 import com.example.backendshelter.repository.PetRepository;
-import com.example.backendshelter.repository.ShelterRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PetService {
 
     private final PetRepository petRepository;
-    private final ShelterRepository shelterRepository;
 
-    public PetService(PetRepository petRepository, ShelterRepository shelterRepository) {
+
+    public PetService(PetRepository petRepository) {
         this.petRepository = petRepository;
-        this.shelterRepository = shelterRepository;
     }
 
     public List<Pet> findAll() {
         return petRepository.findAll();
     }
+
 
     public List<Pet> save(List<CreatePetRQ> createPetRQList) {
         List<Pet> newPetList = new ArrayList<>();
@@ -42,7 +39,6 @@ public class PetService {
     }
 
     public Pet findById(Long id) {
-
         return petRepository.findById(id).orElseThrow(() -> new PetNotFound("Pet doesn't exists."));
     }
 
@@ -59,18 +55,11 @@ public class PetService {
         return this.petRepository.existsById(pet.getId());
     }
 
-    public Shelter saveinshelter(List<Pet> pets, Long id) {
-        List<Pet> newPetList = new ArrayList<>();
-        Optional<Shelter> shelterOptional = shelterRepository.findById(id);
-        if (shelterOptional.isPresent()) {
-            Shelter shelter = shelterOptional.get();
-            for (Pet pet : pets) {
-                pet.setShelter(shelter);
-                newPetList.add(this.petRepository.save(pet));
-            }
-            return shelter;
-        }
-        return null;
+    public Pet updateName(Long id, String name) {
+        Pet pet = petRepository.findById(id).orElseThrow(() -> new PetNotFound("Pet doesn't exists."));
+        pet.setName(name);
+        return petRepository.save(pet);
     }
 }
+
 

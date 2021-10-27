@@ -15,16 +15,16 @@ public class ExceptionsHandler {
     public HttpErrorResponse handleGenericException(PetNotFound exception) {
         return new HttpErrorResponse(
                 404,
-                "Approach number 1",
+                exception.getMessage(),
                 LocalDateTime.now()
         );
     }
 
-    @ExceptionHandler({ShelterNotFound.class})
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public HttpErrorResponse handleGenericException(ShelterNotFound exception) {
+    @ExceptionHandler({ServiceNotAvailable.class})
+    @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
+    public HttpErrorResponse handleServiceNotAvailable(ServiceNotAvailable exception) {
         return new HttpErrorResponse(
-                404,
+                503,
                 exception.getMessage(),
                 LocalDateTime.now()
         );

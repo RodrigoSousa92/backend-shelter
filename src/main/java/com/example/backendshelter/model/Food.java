@@ -21,6 +21,6 @@ public class Food {
     Long id;
 
     private String description;
-    private String brand;
+    private Brand brand;
 
 }

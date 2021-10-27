@@ -13,9 +13,8 @@ import java.time.LocalDateTime;
 @Getter
 public class Feed {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @EmbeddedId
+    private PetFeedId compositeId;
 
     private LocalDateTime feedTime;
 
@@ -28,4 +27,5 @@ public class Feed {
     @MapsId("foodId")
     @JoinColumn(name = "food_id")
     private Food food;
+
 }

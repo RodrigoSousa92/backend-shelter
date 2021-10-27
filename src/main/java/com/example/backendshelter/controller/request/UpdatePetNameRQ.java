@@ -7,11 +7,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-
-public class CreateFoodRequest {
-
-    private String brand;
-
-    private String description;
+public class UpdatePetNameRQ {
+    private String name;
 }
-
